@@ -6,7 +6,7 @@ Displays toasts in a queue similar to the default SnackBar but with more extensi
 * Custom toast animations
 * Custom toast positioning.
 
-![Demo 1](./demo.gif).
+![Demo 2](./demo2.gif).
 
 ## Usage
 
@@ -54,24 +54,49 @@ ToastedMessenger.of(context)!.show(
 );
 ```
 
-Check out this working example and others in the [demo app](./example/lib/main.dart).
+Check out this working example and others in the [demo app](https://github.com/danReynolds/toasted/blob/master/example/lib/main.dart).
 
-## Getting started
+## Custom animations
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
-
-## Usage
-
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
+Custom toast animations are supported through the `transitionBuilder` API:
 
 ```dart
-const like = 'sample';
+ToastedMessenger.of(context)!.show(
+  Toasted(
+    context: context,
+    duration: const Duration(seconds: 3),
+    transitionBuilder: (context, animation, child) {
+      return Positioned(
+        bottom: 0,
+        right: 0,
+        child: SlideTransition(
+          position: Tween<Offset>(
+            begin: const Offset(0, 1),
+            end: Offset.zero,
+          ).animate(animation),
+          child: child,
+        ),
+      );
+    },
+    child: const Align(
+      alignment: Alignment.bottomRight,
+      child: ToastContainer(
+        text: 'This is a slide transition toast',
+      ),
+    ),
+  ),
+);
 ```
 
-## Additional information
+Any transition can be provided and it works out of the box with built-in transitions like:
 
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
+* [FadeTransition](https://api.flutter.dev/flutter/widgets/FadeTransition-class.html)
+![Demo 1](./demo1.gif).
+
+* [SlideTransition](https://api.flutter.dev/flutter/widgets/SlideTransition-class.html)
+
+![Demo 3](./demo3.gif).
+
+* [SizeTransition](https://api.flutter.dev/flutter/widgets/SizeTransition-class.html)
+
+![Demo 4](./demo4.gif).

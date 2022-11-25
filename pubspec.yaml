@@ -1,5 +1,5 @@
 name: toasted
-description: Displays toasts in a queue similar to the default SnackBar but with more extensive customization.
+description: Displays toasts in a queue similar to the default SnackBar but with extended support for custom animations, positioning and content.
 version: 0.0.1
 homepage: https://github.com/danReynolds/toasted
 
