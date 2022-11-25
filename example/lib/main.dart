@@ -183,6 +183,12 @@ class _MyHomePageState extends State<MyHomePage> {
                 );
               },
             ),
+            TextButton(
+              child: const Text('Dismiss toast'),
+              onPressed: () {
+                ToastedMessenger.of(context)!.dismiss();
+              },
+            ),
           ],
         ),
       ),
