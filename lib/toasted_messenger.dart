@@ -25,11 +25,12 @@ class ToastedMessenger extends InheritedWidget {
     queue.enqueue(toast);
   }
 
-  /// Displays the [Toasted] toast as an [Overlay] on top of the route stack.
+  /// Immediately dismisses the current [Toasted] toast.
   void dismiss() {
     queue.dequeue();
   }
 
+  /// Immediately dismissed the current [Toasted] toast and clears all other enqueued toasts.
   void clear() {
     queue.clear();
   }

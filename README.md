@@ -1,22 +1,60 @@
-<!--
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+# 🥪 Toasted 
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/guides/libraries/writing-package-pages).
+Displays toasts in a queue similar to the default SnackBar but with more extensive customization including:
 
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-library-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/developing-packages).
--->
+* Intrinsically sized toasts ([SnackBar](https://api.flutter.dev/flutter/material/SnackBar-class.html]) needs a fixed-width for some reason).
+* Custom toast animations
+* Custom toast positioning.
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+![Demo 1](./demo.gif).
 
-## Features
+## Usage
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+To enable toast support, wrap your app in a `ToastedProvider` widget:
+
+```dart
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ToastedProvider(
+      child: MaterialApp(
+        title: 'MyApp',
+        home: Container(),
+      ),
+    );
+  }
+}
+```
+
+You can then show toasts from anywhere in the build tree using the [ToastedMessenger](https://github.com/danReynolds/toasted/blob/master/lib/toasted_messenger.dart):
+
+```dart
+ToastedMessenger.of(context)!.show(
+  Toasted(
+    context: context,
+    duration: const Duration(seconds: 3),
+    child: Material(
+      color: Colors.transparent,
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+        margin: const EdgeInsets.all(12),
+        decoration: BoxDecoration(
+          color: black,
+          borderRadius: BorderRadius.circular(4),
+        ),
+        child: Text(
+          text,
+          style: TextStyle(color: white),
+        ),
+      ),
+    ),
+  ),
+);
+```
+
+Check out this working example and others in the [demo app](./example/lib/main.dart).
 
 ## Getting started
 

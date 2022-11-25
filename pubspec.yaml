@@ -1,7 +1,7 @@
 name: toasted
 description: Displays toasts in a queue similar to the default SnackBar but with more extensive customization.
 version: 0.0.1
-homepage: 
+homepage: https://github.com/danReynolds/toasted
 
 environment:
   sdk: '>=2.18.2 <3.0.0'
