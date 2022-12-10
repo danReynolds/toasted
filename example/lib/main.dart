@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:toasted/toasted.dart';
-import 'package:toasted/toasted_messenger.dart';
-import 'package:toasted/toasted_provider.dart';
 
 void main() {
   runApp(const MyApp());
@@ -81,7 +79,6 @@ class _MyHomePageState extends State<MyHomePage> {
               onPressed: () {
                 ToastedMessenger.of(context)!.show(
                   Toasted(
-                    context: context,
                     duration: const Duration(seconds: 3),
                     child: const Align(
                       alignment: Alignment.bottomRight,
@@ -98,7 +95,6 @@ class _MyHomePageState extends State<MyHomePage> {
               onPressed: () {
                 ToastedMessenger.of(context)!.show(
                   Toasted(
-                    context: context,
                     duration: const Duration(seconds: 3),
                     child: const Align(
                       alignment: Alignment.bottomRight,
@@ -110,7 +106,6 @@ class _MyHomePageState extends State<MyHomePage> {
                 );
                 ToastedMessenger.of(context)!.show(
                   Toasted(
-                    context: context,
                     duration: const Duration(seconds: 3),
                     child: const Align(
                       alignment: Alignment.bottomRight,
@@ -127,7 +122,6 @@ class _MyHomePageState extends State<MyHomePage> {
               onPressed: () {
                 ToastedMessenger.of(context)!.show(
                   Toasted(
-                    context: context,
                     duration: const Duration(seconds: 3),
                     transitionBuilder: (context, animation, child) {
                       return Positioned(
@@ -157,7 +151,6 @@ class _MyHomePageState extends State<MyHomePage> {
               onPressed: () {
                 ToastedMessenger.of(context)!.show(
                   Toasted(
-                    context: context,
                     duration: const Duration(seconds: 3),
                     transitionBuilder: (context, animation, child) =>
                         Positioned(

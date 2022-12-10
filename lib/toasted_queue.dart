@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'toasted.dart';
+import 'package:toasted/toasted.dart';
 
 enum ToastedState {
   none,

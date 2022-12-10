@@ -33,7 +33,6 @@ You can then show toasts from anywhere in the build tree using the [ToastedMesse
 ```dart
 ToastedMessenger.of(context)!.show(
   Toasted(
-    context: context,
     duration: const Duration(seconds: 3),
     child: Material(
       color: Colors.transparent,
@@ -67,7 +66,6 @@ Custom toast animations are supported through the `transitionBuilder` API. Any t
 ```dart
 ToastedMessenger.of(context)!.show(
   Toasted(
-    context: context,
     duration: const Duration(seconds: 3),
     transitionBuilder: (context, animation, child) {
       // This is the default transition.
@@ -111,7 +109,6 @@ ToastedMessenger.of(context)!.show(
 ```dart
 ToastedMessenger.of(context)!.show(
   Toasted(
-    context: context,
     duration: const Duration(seconds: 3),
     transitionBuilder: (context, animation, child) {
       return Positioned(
@@ -158,7 +155,6 @@ ToastedMessenger.of(context)!.show(
 ```dart
 ToastedMessenger.of(context)!.show(
   Toasted(
-    context: context,
     duration: const Duration(seconds: 3),
     transitionBuilder: (context, animation, child) {
       return Positioned(
