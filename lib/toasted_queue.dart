@@ -35,48 +35,81 @@ class ToastedQueue {
   final List<Toasted> _queue = [];
   Timer? _timer;
   ToastedState _state = ToastedState.none;
-  final void Function(ToastedQueueChangeEvent event)? onEvent;
+  final _toastEventStreamController =
+      StreamController<ToastedQueueChangeEvent>();
+  late final Stream<ToastedQueueChangeEvent> eventStream;
 
-  ToastedQueue({
-    this.onEvent,
-  });
+  ToastedQueue() {
+    eventStream = _toastEventStreamController.stream.asBroadcastStream();
+  }
+
+  dispose() {
+    _toastEventStreamController.close();
+  }
 
   _onEvent() {
     final event = ToastedQueueChangeEvent(
       toast: _queue.isNotEmpty ? _queue.first : null,
       state: _state,
     );
-    onEvent?.call(event);
+    _toastEventStreamController.add(event);
   }
 
-  enqueue(Toasted toast) {
-    _queue.add(toast);
+  /// Returns a future that waits for the given toast to be dequeued.
+  Future<void> _onToastDequeued(Toasted toast) {
+    return eventStream.where((event) {
+      final state = event.state;
 
+      /// If the queue state enters [ToastedState.none], or it has moved on to
+      /// the next toast after the given toast, then the event for dequeuing can be fired.
+      return state == ToastedState.none ||
+          state == ToastedState.transitionIn && !_queue.contains(toast);
+    }).first;
+  }
+
+  /// Enqueues a [Toasted] toast. Returns a future that completes the toast is removed from the queue either after it transitions
+  /// out or when the queue is cleared.
+  Future<void> enqueue(Toasted toast) {
+    final onDequeued = _onToastDequeued(toast);
+
+    _queue.add(toast);
     if (_state == ToastedState.none) {
       _next();
     }
+
+    return onDequeued;
   }
 
-  dequeue() {
+  /// Immediately transitions the current [Toasted] toast out. Returns a future
+  /// that completes when the toast has been successfully dequeued or immediately if the queue is empty.
+  Future<void> dequeue() async {
+    if (_state == ToastedState.none) {
+      return;
+    }
+
+    final toast = _queue.first;
+    final onDequeued = _onToastDequeued(toast);
+
     if (_state == ToastedState.transitionIn || _state == ToastedState.display) {
       _timer!.cancel();
       _timer = null;
       _state = ToastedState.display;
       _next();
     }
+
+    return onDequeued;
   }
 
-  clear() {
+  void clear() {
     if (_state == ToastedState.none) {
       return;
     }
+
     _timer!.cancel();
     _timer = null;
     _state = ToastedState.none;
-    _onEvent();
-    // Clear the queue last so that if there is a current toast displayed
-    // when the queue is cleared, it will be passed along in the onEvent handler.
     _queue.clear();
+    _onEvent();
   }
 
   _next() {
@@ -106,7 +139,9 @@ class ToastedQueue {
         _queue.removeAt(0);
         _state = ToastedState.none;
 
-        if (_queue.isNotEmpty) {
+        if (_queue.isEmpty) {
+          _onEvent();
+        } else {
           _next();
         }
         break;

@@ -67,6 +67,8 @@ Custom toast animations are supported through the `transitionBuilder` API. Any t
 ToastedMessenger.of(context)!.show(
   Toasted(
     duration: const Duration(seconds: 3),
+    // This is the default alignment.
+    alignment: Alignment.bottomRight,
     transitionBuilder: (context, animation, child) {
       // This is the default transition.
       return FadeTransition(
@@ -77,24 +79,21 @@ ToastedMessenger.of(context)!.show(
         child: child,
       );
     },
-    child: const Align(
-      alignment: Alignment.bottomRight,
-      child: Material(
+    child: Material(
       color: Colors.transparent,
-        child: Container(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 12,
-            vertical: 10,
-          ),
-          margin: const EdgeInsets.all(12),
-          decoration: BoxDecoration(
-            color: Colors.black,
-            borderRadius: BorderRadius.circular(4),
-          ),
-          child: Text(
-            'This is a slide transition toast',
-            style: const TextStyle(color: Colors.white),
-          ),
+      child: Container(
+        padding: const EdgeInsets.symmetric(
+          horizontal: 12,
+          vertical: 10,
+        ),
+        margin: const EdgeInsets.all(12),
+        decoration: BoxDecoration(
+          color: Colors.black,
+          borderRadius: BorderRadius.circular(4),
+        ),
+        child: Text(
+          'This is a slide transition toast',
+          style: const TextStyle(color: Colors.white),
         ),
       ),
     ),
@@ -123,24 +122,21 @@ ToastedMessenger.of(context)!.show(
         ),
       );
     },
-    child: const Align(
-      alignment: Alignment.bottomRight,
-      child: Material(
+    child: Material(
       color: Colors.transparent,
-        child: Container(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 12,
-            vertical: 10,
-          ),
-          margin: const EdgeInsets.all(12),
-          decoration: BoxDecoration(
-            color: Colors.black,
-            borderRadius: BorderRadius.circular(4),
-          ),
-          child: Text(
-            'This is a slide transition toast',
-            style: const TextStyle(color: Colors.white),
-          ),
+      child: Container(
+        padding: const EdgeInsets.symmetric(
+          horizontal: 12,
+          vertical: 10,
+        ),
+        margin: const EdgeInsets.all(12),
+        decoration: BoxDecoration(
+          color: Colors.black,
+          borderRadius: BorderRadius.circular(4),
+        ),
+        child: Text(
+          'This is a slide transition toast',
+          style: const TextStyle(color: Colors.white),
         ),
       ),
     ),
@@ -169,24 +165,21 @@ ToastedMessenger.of(context)!.show(
         ),
       );
     },
-    child: const Align(
-      alignment: Alignment.bottomRight,
-      child: Material(
-      color: Colors.transparent,
-        child: Container(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 12,
-            vertical: 10,
-          ),
-          margin: const EdgeInsets.all(12),
-          decoration: BoxDecoration(
-            color: Colors.black,
-            borderRadius: BorderRadius.circular(4),
-          ),
-          child: Text(
-            'This is a slide transition toast',
-            style: const TextStyle(color: Colors.white),
-          ),
+    child: Material(
+    color: Colors.transparent,
+      child: Container(
+        padding: const EdgeInsets.symmetric(
+          horizontal: 12,
+          vertical: 10,
+        ),
+        margin: const EdgeInsets.all(12),
+        decoration: BoxDecoration(
+          color: Colors.black,
+          borderRadius: BorderRadius.circular(4),
+        ),
+        child: Text(
+          'This is a slide transition toast',
+          style: const TextStyle(color: Colors.white),
         ),
       ),
     ),
